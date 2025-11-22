@@ -1,0 +1,155 @@
+/* Wrapper */
+.dm-page-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  color: var(--gray-900);
+}
+
+/* Layout - Using Global Utilities */
+/* .container, .section-padding, .text-center, .mx-auto, .relative, .bg-light, .bg-white, .bg-dark, .grid-X are now handled by index.css */
+
+/* Colors */
+.text-green { color: var(--green); }
+
+/* Animations - Using Global Utilities */
+/* .reveal-item is now handled by index.css */
+
+/* Buttons - Using Global Variables */
+.btn-white {
+  background: var(--white); color: var(--gray-900); padding: 1rem 2rem; border-radius: 0.5rem;
+  font-weight: 600; border: none; cursor: pointer; transition: 0.3s; display: inline-block;
+}
+.btn-white:hover { background: var(--gray-100); transform: scale(1.05); }
+
+.btn-outline-white {
+  background: transparent; color: var(--white); border: 2px solid var(--white);
+  padding: 1rem 2rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer;
+  transition: 0.3s; display: inline-block;
+}
+.btn-outline-white:hover { background: var(--white); color: var(--gray-900); }
+
+/* =========================================
+   2. HERO SECTION
+   ========================================= */
+.dm-hero {
+  position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
+  text-align: center; color: var(--white); background-color: var(--gray-900);
+  background-image: url('https://readdy.ai/api/search-image?query=Creative%20digital%20marketing%20workspace%20with%20social%20media%20campaigns%20displayed%20on%20screens%2C%20modern%20advertising%20agency%20environment%20with%20colorful%20brand%20elements%2C%20professional%20team%20collaboration%20with%20laptops%20and%20tablets%2C%20contemporary%20office%20with%20blue%20and%20purple%20lighting%2C%20clean%20minimalist%20background%20with%20marketing%20graphics&width=1920&height=1080&seq=marketing-hero-bg&orientation=landscape&quot');
+  background-size: cover; background-position: center;
+}
+.dm-hero-overlay { position: absolute; inset: 0; background: rgba(17, 24, 39, 0.85); }
+.dm-hero-title { 
+  font-size: var(--fs-h1); /* Using global variable */
+  font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; 
+}
+.dm-hero-subtitle { 
+  font-size: var(--fs-body); /* Using global variable */
+  color: var(--gray-300); max-width: 42rem; margin: 0 auto 2rem; line-height: 1.6; 
+}
+@media (min-width: 768px) { .dm-hero-title { font-size: 3.5rem; } }
+
+/* =========================================
+   3. STATS & CARDS
+   ========================================= */
+.section-header { margin-bottom: 3rem; }
+/* .section-title, .section-desc are now handled by index.css */
+
+.dm-stat-card { padding: 1rem; }
+.dm-stat-icon-box {
+  width: 4rem; height: 4rem; background: var(--gray-100); border-radius: 0.5rem;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--gray-900);
+}
+.dm-stat-num { font-size: 2rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; }
+.dm-stat-label { color: var(--gray-600); font-weight: 500; }
+
+.dm-card {
+  background: var(--white); padding: 2rem; border-radius: 0.75rem; border: 1px solid var(--gray-100);
+  transition: 0.3s; height: 100%;
+}
+.dm-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--gray-200); transform: translateY(-5px); }
+.dm-card-icon-box {
+  width: 4rem; height: 4rem; background: var(--gray-100); border-radius: 0.5rem;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; color: var(--gray-900);
+}
+.dm-card-title { font-size: var(--fs-h3); font-weight: 600; margin-bottom: 1rem; color: var(--gray-900); }
+.dm-card-desc { color: var(--gray-600); margin-bottom: 1.5rem; line-height: 1.6; }
+.dm-card-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.dm-card-list li { display: flex; align-items: center; gap: 0.5rem; color: var(--gray-700); font-size: 0.9rem; }
+
+/* =========================================
+   4. PROCESS TIMELINE
+   ========================================= */
+.dm-process-wrapper { max-width: 1100px; margin: 0 auto 4rem; }
+.dm-process-step { display: flex; gap: 2rem; position: relative; margin-bottom: 4rem; }
+.dm-process-step:last-child { margin-bottom: 0; }
+
+.dm-process-line {
+  position: absolute; left: 2rem; top: 5rem; bottom: -4rem; width: 2px; background: var(--gray-200); z-index: 0;
+}
+
+.dm-process-header {
+  flex-shrink: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1rem;
+}
+.dm-process-num {
+  width: 4rem; height: 4rem; background: var(--gray-900); color: var(--white); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;
+}
+.dm-process-icon {
+  width: 3rem; height: 3rem; background: var(--gray-100); border-radius: 0.5rem;
+  display: flex; align-items: center; justify-content: center; color: var(--gray-900);
+}
+
+.dm-process-content {
+  flex: 1; background: var(--gray-50); padding: 2rem; border-radius: 0.75rem; transition: 0.3s;
+}
+.dm-process-content:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+.dm-process-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px; }
+.dm-process-title { font-size: var(--fs-h3); font-weight: 700; color: var(--gray-900); }
+.dm-process-badge { background: var(--gray-200); color: var(--gray-700); padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.875rem; font-weight: 500; }
+.dm-process-desc { color: var(--gray-600); margin-bottom: 1.5rem; }
+.dm-process-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 768px) { .dm-process-grid { grid-template-columns: 1fr 1fr; } }
+.dm-process-mini-item { background: var(--white); padding: 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; color: var(--gray-700); display: flex; align-items: center; gap: 0.5rem; }
+
+/* Summary Box */
+.dm-summary-box { background: var(--gray-900); color: var(--white); padding: 3rem; border-radius: 1rem; text-align: center; margin-top: 4rem; }
+.dm-summary-stats { display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; }
+.dm-summary-divider { width: 1px; height: 3rem; background: var(--gray-600); display: none; }
+@media (min-width: 768px) { .dm-summary-divider { display: block; } }
+
+/* =========================================
+   5. TESTIMONIALS
+   ========================================= */
+.dm-testimonial-card {
+  background: var(--gray-50); padding: 2rem; border-radius: 0.75rem; border: 1px solid var(--gray-200); transition: 0.3s;
+}
+.dm-testimonial-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+/* =========================================
+   6. FAQ
+   ========================================= */
+.dm-faq-wrapper { display: flex; flex-direction: column; gap: 1rem; }
+.dm-faq-item { background: var(--white); border-radius: 0.5rem; overflow: hidden; border: 1px solid var(--gray-100); }
+.dm-faq-btn {
+  width: 100%; padding: 1.5rem 2rem; text-align: left; background: var(--white); border: none;
+  display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+  transition: 0.2s;
+}
+.dm-faq-btn:hover { background: var(--gray-50); }
+.dm-faq-q { font-size: 1.125rem; font-weight: 600; color: var(--gray-900); padding-right: 1rem; margin: 0; }
+.dm-faq-icon { flex-shrink: 0; color: var(--gray-600); }
+.dm-faq-ans {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 2rem;
+}
+.dm-faq-ans.open { max-height: 200px; padding-bottom: 1.5rem; }
+.dm-faq-ans p { color: var(--gray-600); line-height: 1.6; margin: 0; }
+
+/* Mobile Tweaks */
+@media (max-width: 768px) {
+  .dm-hero-title { font-size: 2rem; }
+  .dm-process-step { flex-direction: column; gap: 1rem; }
+  .dm-process-line { display: none; }
+  .dm-process-header { flex-direction: row; justify-content: flex-start; }
+  .dm-summary-stats { flex-direction: column; gap: 2rem; }
+}

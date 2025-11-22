@@ -1,0 +1,118 @@
+
+/* 1. Tech Hero */
+.tech-expert-hero {
+  position: relative;
+  background-color: var(--bg-gray-900);
+  padding: 6rem 0;
+  overflow: hidden;
+}
+@media (min-width: 1024px) { .tech-expert-hero { padding: 8rem 0; } }
+
+.tech-expert-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://readdy.ai/api/search-image?query=Advanced%20technology%20infrastructure%20with%20cloud%20computing%20servers%2C%20modern%20data%20center%20environment%20with%20glowing%20network%20connections%2C%20high-tech%20workspace%20with%20cutting-edge%20equipment%2C%20contemporary%20office%20with%20blue%20and%20purple%20lighting%2C%20clean%20professional%20background%20with%20technological%20elements&width=1920&height=1080&seq=technology-hero-bg&orientation=landscape");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+/* 2. Tech Stats */
+.tech-expert-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+@media (min-width: 768px) { .tech-expert-stats-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.tech-expert-stat-icon {
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--bg-gray-100);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+}
+.tech-expert-stat-icon i { font-size: 1.5rem; color: var(--text-gray-900); }
+
+.tech-expert-stat-number {
+  font-size: 1.875rem; font-weight: 700; color: var(--text-gray-900); margin-bottom: 0.5rem;
+}
+@media (min-width: 1024px) { .tech-expert-stat-number { font-size: 2.25rem; } }
+
+.tech-expert-stat-label { font-weight: 500; color: var(--text-gray-600); }
+
+/* 3. Tech Cards (4 Columns) */
+.tech-cards-grid-4 {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) { .tech-cards-grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .tech-cards-grid-4 { grid-template-columns: repeat(4, 1fr); } }
+
+.tech-expert-card {
+  background-color: var(--white);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-gray-100);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  transition: all 0.3s;
+  height: 100%;
+}
+.tech-expert-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--border-gray-200); }
+
+.tech-expert-card-icon {
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--bg-gray-100);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.tech-expert-card-title {
+  font-size: 1.125rem; font-weight: 600; color: var(--text-gray-900); margin-bottom: 0.5rem;
+}
+
+.tech-expert-card-desc {
+  font-size: 0.875rem; color: var(--text-gray-600); margin-bottom: 1rem; line-height: 1.625;
+}
+
+/* 4. Industry Cards (3 Columns) */
+.tech-industry-card {
+  background-color: var(--white);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  border: 1px solid var(--border-gray-100);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  transition: all 0.3s;
+  height: 100%;
+}
+.tech-industry-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+.tech-industry-icon {
+  width: 3rem; height: 3rem; background-color: var(--bg-gray-100); border-radius: 0.5rem;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;
+}
+
+/* 5. Testimonials (2 Columns) */
+.tech-expert-testimonial {
+  border-radius: 0.75rem;
+  padding: 2rem;
+  border: 1px solid var(--border-gray-100);
+  transition: all 0.3s;
+}
+.tech-expert-testimonial:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+/* 6. FAQ Content Logic */
+.tech-faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.tech-faq-content.open { max-height: 150px; }

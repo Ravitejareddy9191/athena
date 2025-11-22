@@ -1,0 +1,209 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
+:root {
+  --blue-50: #eff6ff;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --purple-50: #f5f3ff;
+  --purple-400: #c084fc;
+  --purple-500: #a855f7;
+  --gray-50: #f8fafc;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --black: #000000;
+  --white: #ffffff;
+  --green: #10b981;
+}
+
+/* Wrapper */
+.staffing-page-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #111827;
+}
+
+/* Layout */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.section-padding { padding: 5rem 0; }
+.text-center { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.relative { position: relative; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.gap-4 { gap: 1rem; }
+.justify-center { justify-content: center; }
+
+/* Colors */
+.bg-light { background-color: #f8fafc; }
+.bg-white { background-color: #ffffff; }
+.text-white { color: #ffffff; }
+
+/* Animations */
+.reveal-item {
+  opacity: 0; transform: translateY(30px); transition: all 800ms ease-out;
+}
+.reveal-item.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Buttons */
+.btn-white {
+  background: #ffffff; color: #111827; padding: 1rem 2rem; border-radius: 0.5rem;
+  font-weight: 600; border: none; cursor: pointer; transition: 0.3s; display: inline-block;
+}
+.btn-white:hover { background: #f3f4f6; transform: scale(1.05); }
+
+/* --- STAFF AUGMENTATION PAGE STYLES --- */
+
+/* 1. Staffing Hero */
+.staffing-hero {
+  position: relative;
+  background-color: var(--gray-900);
+  padding: 6rem 0;
+  overflow: hidden;
+}
+@media (min-width: 1024px) { .staffing-hero { padding: 8rem 0; } }
+
+.staffing-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://readdy.ai/api/search-image?query=Professional%20recruitment%20and%20staffing%20office%20environment%20with%20diverse%20talented%20professionals%2C%20modern%20HR%20workspace%20with%20interview%20rooms%20and%20collaboration%20areas%2C%20contemporary%20office%20with%20blue%20and%20purple%20lighting%2C%20clean%20professional%20background%20with%20business%20networking%20elements&width=1920&height=1080&seq=staffing-hero-bg&orientation=landscape&quot');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.staffing-hero-title {
+  font-size: 2.5rem; font-weight: 800; color: #ffffff; margin-bottom: 1.5rem; line-height: 1.2; text-align: center;
+}
+.staffing-hero-subtitle {
+  font-size: 1.125rem; color: #d1d5db; max-width: 42rem; margin: 0 auto 2rem; line-height: 1.6; text-align: center;
+}
+.staffing-hero-btn-wrapper { text-align: center; }
+@media (min-width: 768px) { .staffing-hero-title { font-size: 3.5rem; } }
+
+/* 2. Top Benefits Grid (3 Columns) */
+.staffing-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 72rem; /* max-w-6xl */
+  margin: 0 auto;
+}
+@media (min-width: 768px) { .staffing-benefits-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.staffing-icon-circle {
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--gray-900);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+}
+
+.staffing-benefit-title {
+  font-size: 1.25rem; /* xl */
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.75rem;
+}
+
+.staffing-benefit-desc {
+  color: var(--gray-600);
+  line-height: 1.625;
+}
+
+/* 3. Why Choose Us Grid (2 Columns with Check Icons) */
+.staffing-features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) { .staffing-features-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.staffing-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.staffing-check-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--gray-900);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+.staffing-check-icon i { color: white; font-size: 0.875rem; }
+
+.staffing-feature-title {
+  font-size: 1.125rem; /* lg */
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.staffing-feature-desc {
+  color: var(--gray-600);
+  line-height: 1.625;
+}
+
+/* 4. Staffing CTA Section (Dark BG) */
+.staffing-cta-section {
+  background-color: var(--gray-900);
+  color: white;
+  padding: 5rem 0;
+}
+
+.staffing-cta-title {
+  font-size: 2.25rem; /* 4xl */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.staffing-cta-desc {
+  font-size: 1.25rem; /* xl */
+  color: var(--gray-300);
+  margin-bottom: 2rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.staffing-btn-outline {
+  background-color: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.staffing-btn-outline:hover {
+  background-color: var(--white);
+  color: var(--gray-900);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .staffing-hero-title { font-size: 2rem; }
+  .staffing-cta-title { font-size: 1.75rem; }
+  .staffing-features-grid { grid-template-columns: 1fr; }
+  .staffing-benefits-grid { grid-template-columns: 1fr; }
+  .staffing-hero-btn-wrapper { flex-direction: column; gap: 1rem; }
+  .staffing-btn-outline { width: 100%; }
+}
