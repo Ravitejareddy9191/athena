@@ -1,278 +1,294 @@
+/* --- VARIABLES --- */
 :root {
-  --blue-50: #eff6ff;
-  --blue-400: #60a5fa;
-  --blue-500: #3b82f6;
-  --blue-600: #2563eb;
-  --purple-50: #f5f3ff;
-  --purple-400: #c084fc;
-  --purple-500: #a855f7;
-  --gray-50: #f8fafc;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
-  --black: #000000;
-  --white: #ffffff;
-  --green: #10b981;
+  --ds-gray-900: #111827;
+  --ds-gray-800: #1f2937;
+  --ds-gray-700: #374151;
+  --ds-gray-600: #4b5563;
+  --ds-gray-500: #6b7280;
+  --ds-gray-400: #9ca3af;
+  --ds-gray-300: #d1d5db;
+  --ds-gray-200: #e5e7eb;
+  --ds-gray-100: #f3f4f6;
+  --ds-gray-50: #f9fafb;
+  --ds-white: #ffffff;
+  --ds-blue: #3b82f6;
+  --ds-green: #10b981;
+  --ds-yellow: #facc15;
 }
 
-/* --- 2. PAGE LAYOUT & UTILITIES --- */
+/* --- UTILITIES --- */
 .ds-page-wrapper {
-  width: 100%;
-  overflow-x: hidden;
   font-family: 'Inter', sans-serif;
-  color: var(--gray-900);
+  color: var(--ds-gray-600);
+  background-color: var(--ds-white);
+  overflow-x: hidden;
 }
 
-.container {
+.ds-container {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 1.5rem;
 }
 
-.section-padding { padding: 5rem 0; }
+.ds-section-white { padding: 5rem 0; background-color: var(--ds-white); }
+.ds-section-light { padding: 5rem 0; background-color: var(--ds-gray-50); }
+
 .text-center { text-align: center; }
-.mx-auto { margin-left: auto; margin-right: auto; }
-.relative { position: relative; }
+.mb-16 { margin-bottom: 4rem; }
+.mb-4 { margin-bottom: 1rem; }
+.ds-flex-center { display: flex; justify-content: center; }
 
-/* Background Utilities */
-.bg-light { background-color: var(--gray-50); }
-.bg-white { background-color: var(--white); }
-/* This was likely missing causing the CTA error */
-.bg-dark { background-color: var(--gray-900); } 
-
-/* Grids */
-.grid-3 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-.grid-4 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-
-@media (min-width: 768px) {
-  .grid-3 { grid-template-columns: repeat(2, 1fr); }
-  .grid-4 { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1024px) {
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
-  .grid-4 { grid-template-columns: repeat(4, 1fr); }
-}
-
-/* Buttons */
-.btn-white {
-  background: white;
-  color: var(--gray-900);
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-  display: inline-block;
-}
-.btn-white:hover { background: var(--gray-100); transform: scale(1.05); }
-
-.btn-outline-white {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-  display: inline-block;
-}
-.btn-outline-white:hover { background: white; color: var(--gray-900); }
-
-/* Animation Class */
-.reveal-item {
+/* REVEAL ANIMATION */
+.ds-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 800ms ease-out;
+  transition: all 0.8s ease-out;
 }
-.reveal-item.is-visible {
+.ds-reveal-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* --- 3. HERO SECTION --- */
-.ds-hero {
-  position: relative;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  background-color: var(--gray-900);
-  background-image: url('https://readdy.ai/api/search-image?query=Modern%20digital%20transformation%20workspace%20with%20cloud%20computing%20infrastructure%2C%20digital%20screens%20showing%20business%20analytics%2C%20contemporary%20office%20with%20blue%20and%20purple%20lighting%2C%20professional%20technology%20environment%20with%20servers%20and%20networking%20equipment%2C%20clean%20minimalist%20background%20with%20futuristic%20elements&width=1920&height=1080&seq=digital-hero-bg&orientation=landscape&quot');
-  background-size: cover;
-  background-position: center;
+/* --- TYPOGRAPHY --- */
+.ds-section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--ds-gray-900);
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) { .ds-section-title { font-size: 1.75rem; } }
+
+.ds-section-subtitle {
+  font-size: 1.25rem;
+  color: var(--ds-gray-600);
+  max-width: 48rem;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-.ds-hero-overlay {
+/* --- 1. HERO --- */
+.ds-hero {
+  position: relative;
+  background-color: var(--ds-gray-900);
+  padding: 6rem 0;
+  overflow: hidden;
+  text-align: center;
+}
+@media (min-width: 1024px) { .ds-hero { padding: 8rem 0; } }
+
+.ds-hero-bg {
   position: absolute;
   inset: 0;
-  background: rgba(17, 24, 39, 0.85);
+  /* Stable Unsplash Digital Abstract Background */
+  background-image: url("https://readdy.ai/api/search-image?query=Modern%20digital%20transformation%20workspace%20with%20cloud%20computing%20infrastructure%2C%20digital%20screens%20showing%20business%20analytics%2C%20contemporary%20office%20with%20blue%20and%20purple%20lighting%2C%20professional%20technology%20environment%20with%20servers%20and%20networking%20equipment%2C%20clean%20minimalist%20background%20with%20futuristic%20elements&width=1920&height=1080&seq=digital-hero-bg&orientation=landscape&quot");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
 }
 
 .ds-hero-title {
   font-size: 2.5rem;
   font-weight: 800;
+  color: var(--ds-white);
   margin-bottom: 1.5rem;
   line-height: 1.2;
 }
-@media (min-width: 768px) { .ds-hero-title { font-size: 3.5rem; } }
+@media (min-width: 1024px) { .ds-hero-title { font-size: 3.75rem; } }
 
 .ds-hero-subtitle {
-  font-size: 1.125rem;
-  color: var(--gray-300);
+  font-size: 1.25rem;
+  color: var(--ds-gray-300);
   max-width: 42rem;
   margin: 0 auto 2rem;
   line-height: 1.6;
 }
 
-.section-header { margin-bottom: 3rem; }
-.section-title { font-size: 2.25rem; font-weight: 700; color: var(--gray-900); margin-bottom: 1rem; }
-.section-desc { font-size: 1.125rem; color: var(--gray-600); max-width: 48rem; margin: 0 auto; }
+.ds-btn-white {
+  background-color: var(--ds-white);
+  color: var(--ds-gray-900);
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.ds-btn-white:hover { background-color: var(--ds-gray-100); transform: translateY(-2px); }
 
-/* --- 4. CARDS & ICONS --- */
-.ds-stat-card { padding: 1rem; }
+/* --- 2. STATS --- */
+.ds-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
 .ds-stat-icon-box {
   width: 4rem; height: 4rem;
-  background: var(--gray-100);
+  background: var(--ds-gray-100);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1.5rem;
-  color: var(--gray-900);
+  margin: 0 auto 1rem;
 }
-.ds-stat-num { font-size: 2.5rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem; }
-.ds-stat-label { font-size: 1.125rem; color: var(--gray-600); font-weight: 500; }
+.ds-stat-icon-box i { font-size: 1.5rem; color: var(--ds-gray-900); }
 
-.ds-card {
-  background: white;
-  padding: 2rem;
+.ds-stat-num { font-size: 2.25rem; font-weight: 700; color: var(--ds-gray-900); margin-bottom: 0.5rem; }
+.ds-stat-label { font-size: 1.125rem; font-weight: 500; color: var(--ds-gray-600); }
+
+/* --- 3. SERVICES & INDUSTRIES (Shared Grid/Card) --- */
+.ds-services-grid {
+  display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 80rem; margin: 0 auto;
+}
+@media (min-width: 768px) { .ds-services-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .ds-services-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.ds-service-card {
+  background: var(--ds-white);
   border-radius: 0.75rem;
-  border: 1px solid var(--gray-100);
+  padding: 2rem;
+  border: 1px solid var(--ds-gray-100);
   transition: 0.3s;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
-.ds-card:hover {
+.ds-service-card:hover {
+  transform: translateY(-4px);
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-  transform: translateY(-5px);
-  border-color: var(--gray-200);
 }
+
 .ds-card-icon-box {
-  width: 4rem; height: 4rem;
-  background: var(--gray-100);
-  border-radius: 0.5rem;
-  display: flex; align-items: center; justify-content: center;
+  width: 4rem; height: 4rem; background: var(--ds-gray-100);
+  border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;
   margin-bottom: 1.5rem;
-  color: var(--gray-900);
 }
-.ds-card-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: var(--gray-900); }
-.ds-card-desc { color: var(--gray-600); margin-bottom: 1.5rem; line-height: 1.6; flex-grow: 1; }
-.ds-card-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-.ds-card-list li { display: flex; align-items: center; gap: 0.5rem; color: var(--gray-700); font-size: 0.95rem; }
+.ds-card-icon-box i { font-size: 1.5rem; color: var(--ds-gray-900); }
 
-/* --- 5. PROCESS TIMELINE --- */
-.process-timeline-wrapper { max-width: 1100px; margin: 0 auto 4rem; }
-.process-step { display: flex; gap: 2rem; position: relative; margin-bottom: 4rem; }
-.process-step:last-child { margin-bottom: 0; }
+.ds-card-title { font-size: 1.25rem; font-weight: 600; color: var(--ds-gray-900); margin-bottom: 1rem; }
+.ds-card-desc { color: var(--ds-gray-600); line-height: 1.6; }
 
-.process-line {
-  position: absolute; left: 2rem; top: 5rem; bottom: -4rem; width: 2px; background: var(--gray-200);
-  z-index: 0;
+.ds-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+.ds-list-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.95rem; color: var(--ds-gray-700);
+}
+.ds-list-item i { color: var(--ds-green); }
+
+/* --- 4. PROCESS --- */
+.ds-process-wrapper { max-width: 72rem; margin: 0 auto 4rem; }
+
+.ds-process-step { display: flex; gap: 2rem; position: relative; margin-bottom: 4rem; }
+.ds-process-step:last-child { margin-bottom: 0; }
+
+.ds-process-line {
+  position: absolute; left: 2rem; top: 5rem; bottom: -4rem;
+  width: 2px; background: var(--ds-gray-200); z-index: 0;
+}
+@media (max-width: 768px) { .ds-process-line { display: none; } }
+
+.ds-step-header-group {
+  flex-shrink: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1rem;
 }
 
-.process-header { flex-shrink: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-.process-num-box {
-  width: 4rem; height: 4rem; background: var(--gray-900); color: white;
+.ds-step-num-circle {
+  width: 4rem; height: 4rem; background: var(--ds-gray-900); color: var(--ds-white);
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 1.25rem;
-}
-.process-icon-small {
-  width: 3rem; height: 3rem; background: var(--gray-100); border-radius: 0.5rem;
-  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.125rem;
 }
 
-.process-content {
-  flex: 1; background: var(--gray-50); padding: 2rem; border-radius: 0.75rem;
+.ds-step-icon-small {
+  width: 3rem; height: 3rem; background: var(--ds-gray-100);
+  border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;
+}
+.ds-step-icon-small i { font-size: 1.25rem; color: var(--ds-gray-900); }
+
+.ds-step-content {
+  flex: 1; background: var(--ds-gray-50); padding: 2rem; border-radius: 0.75rem;
   transition: 0.3s;
 }
-.process-content:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+.ds-step-content:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
 
-.process-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px; }
-.process-title { font-size: 1.5rem; font-weight: 700; color: var(--gray-900); }
-.process-badge {
-  background: var(--gray-200); color: var(--gray-700);
+.ds-step-title-row {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px;
+}
+.ds-step-title { font-size: 1.5rem; font-weight: 700; color: var(--ds-gray-900); }
+.ds-step-badge {
+  background: var(--ds-gray-200); color: var(--ds-gray-700);
   padding: 0.25rem 0.75rem; border-radius: 99px;
   font-size: 0.875rem; font-weight: 500;
 }
-.process-desc { font-size: 1.125rem; color: var(--gray-600); margin-bottom: 1.5rem; }
-.process-grid-mini { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-@media (min-width: 768px) { .process-grid-mini { grid-template-columns: 1fr 1fr; } }
+.ds-step-desc { font-size: 1.125rem; color: var(--ds-gray-600); margin-bottom: 1.5rem; }
 
-.process-mini-item {
-  background: white; padding: 0.75rem; border-radius: 0.5rem;
-  font-size: 0.875rem; font-weight: 500; color: var(--gray-700);
-  display: flex; align-items: center; gap: 0.5rem;
+.ds-step-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 768px) { .ds-step-grid { grid-template-columns: 1fr 1fr; } }
+
+.ds-check-pill {
+  background: var(--ds-white); padding: 0.75rem; border-radius: 0.5rem;
+  font-size: 0.875rem; font-weight: 500; color: var(--ds-gray-700);
+  display: flex; align-items: center; gap: 0.75rem;
 }
+.ds-check-pill i { color: var(--ds-green); }
 
 /* Summary Box */
-.process-summary-box {
-  background: var(--gray-900); color: white; padding: 3rem;
+.ds-summary-box {
+  background: var(--ds-gray-900); color: var(--ds-white); padding: 3rem;
   border-radius: 1rem; text-align: center; margin-top: 4rem;
 }
-.summary-stats {
-  display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;
-}
-.summary-divider { width: 1px; height: 3rem; background: var(--gray-600); display: none; }
-@media (min-width: 768px) { .summary-divider { display: block; } }
+.ds-summary-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+.ds-summary-desc { color: var(--ds-gray-300); margin-bottom: 1.5rem; max-width: 42rem; margin-left: auto; margin-right: auto; }
+
+.ds-summary-stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+.ds-sum-num { font-size: 1.875rem; font-weight: 700; margin-bottom: 0.25rem; }
+.ds-sum-label { font-size: 0.875rem; color: var(--ds-gray-400); }
+
+.ds-divider { width: 1px; height: 3rem; background: var(--ds-gray-600); display: none; }
+@media (min-width: 640px) { .ds-divider { display: block; } }
 
 /* --- 6. TESTIMONIALS --- */
-.testimonial-box {
-  background: var(--gray-50); padding: 2rem;
-  border-radius: 0.75rem; border: 1px solid var(--gray-100);
+.ds-testimonials-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 768px) { .ds-testimonials-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.ds-testimonial-card {
+  background: var(--ds-gray-50); padding: 2rem;
+  border-radius: 0.75rem; border: 1px solid var(--ds-gray-100);
   transition: 0.3s;
 }
-.testimonial-box:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+.ds-testimonial-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+.ds-test-name { font-size: 1.125rem; font-weight: 600; color: var(--ds-gray-900); }
+.ds-test-role { font-size: 0.875rem; color: var(--ds-gray-600); }
+.ds-test-company { font-size: 0.875rem; color: var(--ds-gray-500); }
+.ds-stars { color: var(--ds-yellow); margin-bottom: 0.75rem; font-size: 0.875rem; }
+.ds-quote { font-style: italic; color: var(--ds-gray-700); line-height: 1.6; }
 
 /* --- 7. FAQ --- */
-.faq-wrapper { display: flex; flex-direction: column; gap: 1rem; }
-.faq-item { border-radius: 0.5rem; background: white; overflow: hidden; border: 1px solid var(--gray-100); }
-.faq-btn {
-  width: 100%; padding: 1.5rem; text-align: left; background: white; border: none;
+.ds-faq-wrapper { max-width: 48rem; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+.ds-faq-item { background: var(--ds-white); border-radius: 0.5rem; overflow: hidden; }
+
+.ds-faq-btn {
+  width: 100%; padding: 1.5rem; text-align: left; background: var(--ds-white); border: none;
   display: flex; justify-content: space-between; align-items: center; cursor: pointer;
   transition: 0.2s;
 }
-.faq-btn:hover { background: var(--gray-50); }
-.faq-question { font-weight: 600; font-size: 1.125rem; color: var(--gray-900); padding-right: 1rem; }
-.faq-answer {
-  max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 1.5rem;
-}
-.faq-answer.open { max-height: 300px; padding-bottom: 1.5rem; }
-.faq-answer p { color: var(--gray-600); line-height: 1.6; }
+.ds-faq-btn:hover { background: var(--ds-gray-50); }
+.ds-faq-question { font-size: 1.125rem; font-weight: 600; color: var(--ds-gray-900); padding-right: 1rem; }
+.ds-faq-icon i { transition: transform 0.2s; display: block; color: var(--ds-gray-500); }
+.ds-faq-icon i.rotate { transform: rotate(180deg); }
 
-/* --- 8. CTA BOX (Fixed) --- */
-.cta-box {
-  background-color: var(--gray-900); /* Added explicitly to prevent white-on-white error */
-  padding: 4rem 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  color: white;
-}
+.ds-faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 1.5rem; }
+.ds-faq-content.open { max-height: 200px; padding-bottom: 1.5rem; }
+.ds-faq-content p { color: var(--ds-gray-600); line-height: 1.6; }
 
-/* --- 9. MOBILE RESPONSIVE --- */
-@media (max-width: 768px) {
-  .ds-hero-title { font-size: 2rem; }
-  .process-step { flex-direction: column; gap: 1rem; }
-  .process-line { left: 2rem; top: 4rem; bottom: -1rem; display: none; }
-  .process-header { flex-direction: row; justify-content: flex-start; }
-  .process-content { padding: 1.5rem; }
-  .process-grid-mini { grid-template-columns: 1fr; }
-  .summary-stats { flex-direction: column; gap: 2rem; }
-  .summary-divider { display: none; }
+/* --- 8. CTA --- */
+.ds-cta-section { background: var(--ds-gray-900); padding: 5rem 0; }
+.ds-cta-content { max-width: 56rem; margin: 0 auto; }
+.ds-cta-title { font-size: 2.5rem; font-weight: 700; color: var(--ds-white); margin-bottom: 1.5rem; }
+.ds-cta-desc { font-size: 1.25rem; color: var(--ds-gray-300); max-width: 42rem; margin: 0 auto 2rem; }
+
+.ds-cta-buttons { display: flex; justify-content: center; gap: 1rem; flex-direction: column; }
+@media (min-width: 640px) { .ds-cta-buttons { flex-direction: row; } }
+
+.ds-btn-outline {
+  background: transparent; color: var(--ds-white);
+  padding: 1rem 2rem; border-radius: 0.5rem; font-weight: 600;
+  border: 2px solid var(--ds-white); cursor: pointer; transition: 0.3s;
 }
+.ds-btn-outline:hover { background: var(--ds-white); color: var(--ds-gray-900); }

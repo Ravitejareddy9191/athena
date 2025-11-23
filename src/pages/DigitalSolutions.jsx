@@ -1,304 +1,358 @@
-import React, { useState, useEffect, useRef } from 'react';
-import '../styles/DigitalSolutions.css'; 
-
-// Animation Helper (You can also move this to a separate file like src/components/RevealOnScroll.js)
-const RevealOnScroll = ({ children, delay = 0, className = '' }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        observer.disconnect();
-      }
-    }, { threshold: 0.1 });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-  return (
-    <div ref={ref} style={{ transitionDelay: `${delay}ms` }} className={`reveal-item ${isVisible ? 'is-visible' : ''} ${className}`}>
-      {children}
-    </div>
-  );
-};
+import React, { useState, useEffect } from 'react';
+import '../styles/DigitalSolutions.css';
 
 const DigitalSolutions = () => {
   // FAQ State
   const [openFaq, setOpenFaq] = useState(null);
+  const toggleFaq = (index) => setOpenFaq(openFaq === index ? null : index);
 
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
+  // --- REVEAL ON SCROLL LOGIC ---
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('ds-reveal-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const elements = document.querySelectorAll('.ds-reveal');
+    elements.forEach(el => observer.observe(el));
+
+    return () => {
+      elements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+
+  // --- DATA ---
+  const stats = [
+    { icon: "ri-trophy-line", num: "200+", label: "Projects Delivered" },
+    { icon: "ri-heart-line", num: "98%", label: "Client Satisfaction" },
+    { icon: "ri-time-line", num: "15+", label: "Industry Experience" },
+    { icon: "ri-team-line", num: "50+", label: "Digital Experts" }
+  ];
+
+  const services = [
+    { 
+      icon: "ri-lightbulb-line", title: "Digital Strategy & Consulting", 
+      desc: "Comprehensive digital transformation roadmaps tailored to your business objectives and industry requirements.",
+      list: ["Strategic Planning", "Digital Roadmap", "Technology Assessment", "ROI Analysis"]
+    },
+    { 
+      icon: "ri-cloud-line", title: "Cloud Migration & Infrastructure", 
+      desc: "Seamless cloud adoption with scalable infrastructure solutions that reduce costs and improve performance.",
+      list: ["AWS/Azure Migration", "Infrastructure Setup", "DevOps Implementation", "24/7 Support"]
+    },
+    { 
+      icon: "ri-code-box-line", title: "Enterprise Software Development", 
+      desc: "Custom software solutions designed to streamline operations and enhance productivity across your organization.",
+      list: ["Custom Applications", "API Integration", "Legacy Modernization", "Quality Assurance"]
+    },
+    { 
+      icon: "ri-settings-3-line", title: "Digital Process Automation", 
+      desc: "Intelligent automation solutions that eliminate manual tasks and optimize business workflows.",
+      list: ["Workflow Automation", "RPA Implementation", "Process Optimization", "Integration Services"]
+    },
+    { 
+      icon: "ri-bar-chart-box-line", title: "Data Analytics & Intelligence", 
+      desc: "Transform raw data into actionable insights with advanced analytics and business intelligence platforms.",
+      list: ["Data Visualization", "Predictive Analytics", "Business Intelligence", "Real-time Dashboards"]
+    },
+    { 
+      icon: "ri-shield-check-line", title: "Cybersecurity & Compliance", 
+      desc: "Comprehensive security solutions to protect your digital assets and ensure regulatory compliance.",
+      list: ["Security Assessment", "Compliance Framework", "Threat Protection", "Risk Management"]
+    }
+  ];
+
+  const processSteps = [
+    { 
+      num: "01", icon: "ri-search-2-line", title: "Assessment & Strategy", time: "2-4 weeks", 
+      desc: "We evaluate your current digital maturity, identify transformation opportunities, and develop a comprehensive digital strategy.",
+      list: ["Digital maturity assessment", "Opportunity analysis", "Transformation strategy", "Implementation roadmap"]
+    },
+    { 
+      num: "02", icon: "ri-building-line", title: "Architecture Design", time: "4-6 weeks", 
+      desc: "Design scalable digital architecture that supports your business objectives and future growth requirements.",
+      list: ["System architecture", "Technology stack", "Integration planning", "Security framework"]
+    },
+    { 
+      num: "03", icon: "ri-code-line", title: "Development & Testing", time: "8-12 weeks", 
+      desc: "Build robust digital solutions with modern technologies, ensuring quality through comprehensive testing.",
+      list: ["Application development", "Quality assurance", "Performance testing", "Security validation"]
+    },
+    { 
+      num: "04", icon: "ri-rocket-2-line", title: "Deployment & Support", time: "Ongoing", 
+      desc: "Deploy solutions with minimal disruption, provide team training, and ensure ongoing support and optimization.",
+      list: ["Production deployment", "Team training", "Support services", "Performance monitoring"]
+    }
+  ];
+
+  const industries = [
+    { icon: "ri-heart-pulse-line", title: "Healthcare", desc: "Digital health platforms, telemedicine solutions, and electronic health records systems.", list: ["Electronic health records", "Telemedicine platforms", "Patient portals", "Healthcare analytics"] },
+    { icon: "ri-bank-line", title: "Financial Services", desc: "Digital banking, fintech solutions, compliance systems, and customer experience platforms.", list: ["Digital banking", "Payment systems", "Compliance platforms", "Customer analytics"] },
+    { icon: "ri-settings-3-line", title: "Manufacturing", desc: "Industrial IoT, smart manufacturing systems, supply chain digitization, and quality management.", list: ["Industrial IoT", "Smart manufacturing", "Supply chain systems", "Quality management"] },
+    { icon: "ri-shopping-cart-line", title: "Retail & E-commerce", desc: "E-commerce platforms, omnichannel experiences, inventory systems, and customer analytics.", list: ["E-commerce platforms", "Omnichannel systems", "Inventory management", "Customer analytics"] },
+    { icon: "ri-graduation-cap-line", title: "Education", desc: "Learning management systems, digital classrooms, student information systems, and online learning.", list: ["Learning management", "Digital classrooms", "Student systems", "Online learning"] },
+    { icon: "ri-lightning-line", title: "Energy & Utilities", desc: "Smart grid systems, energy management platforms, utility billing, and sustainability solutions.", list: ["Smart grid systems", "Energy management", "Utility billing", "Sustainability platforms"] }
+  ];
+
+  const testimonials = [
+    { name: "Dr. Sarah Johnson", role: "CTO", company: "HealthCare Plus", quote: "Athena IQ Solutions completely transformed our healthcare platform. The new system has improved patient satisfaction by 45% and reduced operational costs by 30%." },
+    { name: "Michael Chen", role: "Head of Digital Innovation", company: "FirstBank Financial", quote: "Their digital banking solution exceeded all expectations. We've seen a 60% increase in digital adoption and significantly improved customer experience scores." },
+    { name: "Emily Rodriguez", role: "VP of Operations", company: "TechManufacturing Corp", quote: "The manufacturing digitization project delivered outstanding results. Our production efficiency increased by 35% and quality defects decreased by 50%." }
+  ];
 
   const faqs = [
-    { q: "What is digital transformation and why is it important?", a: "Digital transformation is the integration of digital technology into all areas of a business, fundamentally changing how you operate and deliver value to customers. It's crucial for staying competitive, improving efficiency, and meeting modern customer expectations." },
-    { q: "How long does a typical digital transformation project take?", a: "Timelines vary based on scope. A specific module might take 3-4 months, while a complete enterprise transformation can take 12-24 months. We work in agile sprints to deliver value incrementally." },
-    { q: "What industries do you specialize in?", a: "We have deep expertise in Healthcare, Finance, Manufacturing, Retail, Education, and Energy sectors, providing tailored solutions for each industry's unique challenges." },
-    { q: "How do you ensure data security during digital transformation?", a: "Security is baked into our process from day one (DevSecOps). We adhere to industry standards like GDPR, HIPAA, and SOC2, implementing encryption, access controls, and regular audits." },
-    { q: "What ongoing support do you provide after implementation?", a: "We provide 24/7 monitoring, regular maintenance updates, performance optimization, and team training to ensure your solution remains robust and efficient." },
-    { q: "How do you measure the success of digital transformation?", a: "We define KPIs early on, such as ROI, operational efficiency gains, customer satisfaction scores (CSAT), and user adoption rates." }
+    "What is digital transformation and why is it important?",
+    "How long does a typical digital transformation project take?",
+    "What industries do you specialize in?",
+    "How do you ensure data security during digital transformation?",
+    "What ongoing support do you provide after implementation?",
+    "How do you measure the success of digital transformation?"
   ];
 
   return (
     <div className="ds-page-wrapper">
       
-      {/* --- HERO SECTION --- */}
+      {/* 1. HERO SECTION */}
       <section className="ds-hero">
-        <div className="ds-hero-overlay"></div>
-        <div className="container relative z-10">
-          <RevealOnScroll>
-            <h1 className="ds-hero-title">Digital Transformation Solutions</h1>
-            <p className="ds-hero-subtitle">
-              Modernize your business with comprehensive digital transformation strategies that drive efficiency, innovation, and growth.
+        <div className="ds-hero-bg"></div>
+        <div className="ds-container relative z-10 text-center ds-reveal">
+          <h1 className="ds-hero-title">Digital Transformation Solutions</h1>
+          <p className="ds-hero-subtitle">
+            Modernize your business with comprehensive digital transformation strategies that drive efficiency, innovation, and growth.
+          </p>
+          <div className="ds-flex-center">
+             <button className="ds-btn-white">Get Digital Consultation</button>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. STATS SECTION */}
+      <section className="ds-section-white">
+        <div className="ds-container">
+          <div className="ds-stats-grid ds-reveal">
+            {stats.map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="ds-stat-icon-box">
+                  <i className={`${item.icon}`}></i>
+                </div>
+                <div className="ds-stat-num">{item.num}</div>
+                <div className="ds-stat-label">{item.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. SERVICES GRID */}
+      <section className="ds-section-light" id="digital-services">
+        <div className="ds-container">
+          <div className="text-center mb-16 ds-reveal">
+            <h2 className="ds-section-title">Our Digital Solutions</h2>
+            <p className="ds-section-subtitle">
+              Comprehensive digital transformation services designed to accelerate your business growth and technological advancement.
             </p>
-            <div className="ds-hero-buttons">
-              <button className="btn-white">Get Digital Consultation</button>
-            </div>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {/* --- STATS SECTION --- */}
-      <section className="section-padding bg-white">
-        <div className="container">
-          <div className="grid-4 gap-8">
-            {[
-              { icon: 'ri-trophy-line', num: '200+', label: 'Projects Delivered' },
-              { icon: 'ri-heart-line', num: '98%', label: 'Client Satisfaction' },
-              { icon: 'ri-time-line', num: '15+', label: 'Industry Experience' },
-              { icon: 'ri-team-line', num: '50+', label: 'Digital Experts' }
-            ].map((stat, idx) => (
-              <RevealOnScroll key={idx} delay={idx * 100}>
-                <div className="ds-stat-card text-center">
-                  <div className="ds-stat-icon-box">
-                    <i className={`${stat.icon} text-2xl`}></i>
-                  </div>
-                  <div className="ds-stat-num">{stat.num}</div>
-                  <div className="ds-stat-label">{stat.label}</div>
+          </div>
+          <div className="ds-services-grid ds-reveal">
+            {services.map((sol, i) => (
+              <div key={i} className="ds-service-card group">
+                <div className="ds-card-icon-box">
+                  <i className={`${sol.icon}`}></i>
                 </div>
-              </RevealOnScroll>
+                <h3 className="ds-card-title">{sol.title}</h3>
+                <p className="ds-card-desc mb-4">{sol.desc}</p>
+                <ul className="ds-list">
+                  {sol.list.map((li, j) => (
+                    <li key={j} className="ds-list-item">
+                      <i className="ri-check-line"></i>
+                      <span>{li}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- SERVICES GRID --- */}
-      <section className="section-padding bg-light">
-        <div className="container">
-          <RevealOnScroll>
-            <div className="section-header text-center">
-              <h2 className="section-title">Our Digital Solutions</h2>
-              <p className="section-desc mx-auto">Comprehensive digital transformation services designed to accelerate your business growth and technological advancement.</p>
-            </div>
-          </RevealOnScroll>
+      {/* 4. PROCESS SECTION */}
+      <section className="ds-section-white">
+        <div className="ds-container">
+          <div className="text-center mb-16 ds-reveal">
+            <h2 className="ds-section-title">Our Digital Transformation Process</h2>
+            <p className="ds-section-subtitle">
+              We follow a proven 4-step methodology to ensure successful digital transformation with minimal risk and maximum business value.
+            </p>
+          </div>
 
-          <div className="grid-3 gap-8">
-            {[
-              { title: "Digital Strategy & Consulting", icon: "ri-lightbulb-line", desc: "Comprehensive digital transformation roadmaps tailored to your business objectives.", list: ["Strategic Planning", "Digital Roadmap", "Technology Assessment", "ROI Analysis"] },
-              { title: "Cloud Migration & Infrastructure", icon: "ri-cloud-line", desc: "Seamless cloud adoption with scalable infrastructure solutions.", list: ["AWS/Azure Migration", "Infrastructure Setup", "DevOps Implementation", "24/7 Support"] },
-              { title: "Enterprise Software Development", icon: "ri-code-box-line", desc: "Custom software solutions designed to streamline operations.", list: ["Custom Applications", "API Integration", "Legacy Modernization", "Quality Assurance"] },
-              { title: "Digital Process Automation", icon: "ri-settings-3-line", desc: "Intelligent automation solutions that eliminate manual tasks.", list: ["Workflow Automation", "RPA Implementation", "Process Optimization", "Integration Services"] },
-              { title: "Data Analytics & Intelligence", icon: "ri-bar-chart-box-line", desc: "Transform raw data into actionable insights with advanced analytics.", list: ["Data Visualization", "Predictive Analytics", "Business Intelligence", "Real-time Dashboards"] },
-              { title: "Cybersecurity & Compliance", icon: "ri-shield-check-line", desc: "Comprehensive security solutions to protect your digital assets.", list: ["Security Assessment", "Compliance Framework", "Threat Protection", "Risk Management"] }
-            ].map((service, idx) => (
-              <RevealOnScroll key={idx} delay={idx * 100}>
-                <div className="ds-card group">
-                  <div className="ds-card-icon-box">
-                    <i className={`${service.icon} text-2xl`}></i>
+          <div className="ds-process-wrapper ds-reveal">
+            {processSteps.map((step, i) => (
+              <div key={i} className="ds-process-step">
+                {/* Connector Line */}
+                {i !== processSteps.length - 1 && <div className="ds-process-line"></div>}
+                
+                <div className="ds-step-header-group">
+                  <div className="ds-step-num-circle">{step.num}</div>
+                  <div className="ds-step-icon-small">
+                    <i className={`${step.icon}`}></i>
                   </div>
-                  <h3 className="ds-card-title">{service.title}</h3>
-                  <p className="ds-card-desc">{service.desc}</p>
-                  <ul className="ds-card-list">
-                    {service.list.map((item, i) => (
-                      <li key={i}><i className="ri-check-line text-green"></i> {item}</li>
+                </div>
+
+                <div className="ds-step-content">
+                  <div className="ds-step-title-row">
+                    <h3 className="ds-step-title">{step.title}</h3>
+                    <span className="ds-step-badge">{step.time}</span>
+                  </div>
+                  <p className="ds-step-desc">{step.desc}</p>
+                  <div className="ds-step-grid">
+                    {step.list.map((li, j) => (
+                      <div key={j} className="ds-check-pill">
+                        <i className="ri-check-line"></i>
+                        <span>{li}</span>
+                      </div>
                     ))}
-                  </ul>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --- PROCESS TIMELINE --- */}
-      <section className="section-padding bg-white">
-        <div className="container">
-          <RevealOnScroll>
-            <div className="section-header text-center">
-              <h2 className="section-title">Our Digital Transformation Process</h2>
-              <p className="section-desc mx-auto">We follow a proven 4-step methodology to ensure successful digital transformation with minimal risk.</p>
-            </div>
-          </RevealOnScroll>
-
-          <div className="process-timeline-wrapper">
-            {[
-              { step: "01", title: "Assessment & Strategy", time: "2-4 weeks", desc: "We evaluate your current digital maturity and identify transformation opportunities.", items: ["Digital maturity assessment", "Opportunity analysis", "Transformation strategy", "Implementation roadmap"] },
-              { step: "02", title: "Architecture Design", time: "4-6 weeks", desc: "Design scalable digital architecture that supports your business objectives.", items: ["System architecture", "Technology stack", "Integration planning", "Security framework"] },
-              { step: "03", title: "Development & Testing", time: "8-12 weeks", desc: "Build robust digital solutions with modern technologies ensuring quality.", items: ["Application development", "Quality assurance", "Performance testing", "Security validation"] },
-              { step: "04", title: "Deployment & Support", time: "Ongoing", desc: "Deploy solutions with minimal disruption and ensure ongoing support.", items: ["Production deployment", "Team training", "Support services", "Performance monitoring"] }
-            ].map((phase, idx) => (
-              <RevealOnScroll key={idx} delay={idx * 150}>
-                <div className="process-step">
-                  {/* Line Connector (except for last item) */}
-                  {idx !== 3 && <div className="process-line"></div>}
-                  
-                  <div className="process-header">
-                    <div className="process-num-box">
-                      <span className="process-num">{phase.step}</span>
-                    </div>
-                    <div className="process-icon-small">
-                       {/* Simplified icons based on index */}
-                       <i className={`text-xl text-gray-900 ${idx===0?'ri-search-2-line':idx===1?'ri-building-line':idx===2?'ri-code-line':'ri-rocket-2-line'}`}></i>
-                    </div>
-                  </div>
-
-                  <div className="process-content">
-                    <div className="process-title-row">
-                      <h3 className="process-title">{phase.title}</h3>
-                      <span className="process-badge">{phase.time}</span>
-                    </div>
-                    <p className="process-desc">{phase.desc}</p>
-                    <div className="process-grid-mini">
-                      {phase.items.map((item, i) => (
-                        <div key={i} className="process-mini-item">
-                          <i className="ri-check-line text-green"></i> {item}
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </div>
-              </RevealOnScroll>
+              </div>
             ))}
           </div>
 
-          {/* Process Summary Box */}
-          <RevealOnScroll delay={300}>
-            <div className="process-summary-box">
-              <h3 className="text-2xl font-bold mb-4">End-to-End Digital Transformation</h3>
-              <p className="text-gray-300 mb-6">From initial assessment to ongoing optimization, we ensure your digital journey delivers measurable business value.</p>
-              <div className="summary-stats">
-                <div><div className="text-3xl font-bold">3-12</div><div className="text-sm text-gray-400">Months Timeline</div></div>
-                <div className="summary-divider"></div>
-                <div><div className="text-3xl font-bold">98%</div><div className="text-sm text-gray-400">Success Rate</div></div>
-                <div className="summary-divider"></div>
-                <div><div className="text-3xl font-bold">24/7</div><div className="text-sm text-gray-400">Support</div></div>
+          <div className="ds-summary-box ds-reveal">
+            <h3 className="ds-summary-title">End-to-End Digital Transformation</h3>
+            <p className="ds-summary-desc">
+              From initial assessment to ongoing optimization, we ensure your digital journey delivers measurable business value at every stage.
+            </p>
+            <div className="ds-summary-stats">
+              <div className="text-center">
+                <div className="ds-sum-num">3-12</div>
+                <div className="ds-sum-label">Months Timeline</div>
+              </div>
+              <div className="ds-divider"></div>
+              <div className="text-center">
+                <div className="ds-sum-num">98%</div>
+                <div className="ds-sum-label">Success Rate</div>
+              </div>
+              <div className="ds-divider"></div>
+              <div className="text-center">
+                <div className="ds-sum-num">24/7</div>
+                <div className="ds-sum-label">Support</div>
               </div>
             </div>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {/* --- INDUSTRIES SECTION --- */}
-      <section className="section-padding bg-light">
-        <div className="container">
-          <RevealOnScroll>
-            <div className="section-header text-center">
-              <h2 className="section-title">Industries We Transform</h2>
-              <p className="section-desc mx-auto">We deliver tailored digital transformation solutions across diverse industries.</p>
-            </div>
-          </RevealOnScroll>
-
-          <div className="grid-3 gap-8">
-             {[
-               { name: "Healthcare", icon: "ri-heart-pulse-line", desc: "Digital health platforms & telemedicine.", list: ["EHR Systems", "Telemedicine", "Patient Portals"] },
-               { name: "Financial Services", icon: "ri-bank-line", desc: "Digital banking & fintech solutions.", list: ["Digital Banking", "Payment Systems", "Compliance"] },
-               { name: "Manufacturing", icon: "ri-settings-3-line", desc: "Industrial IoT & smart manufacturing.", list: ["Industrial IoT", "Smart Factory", "Supply Chain"] },
-               { name: "Retail", icon: "ri-shopping-cart-line", desc: "E-commerce & omnichannel experiences.", list: ["E-commerce", "Omnichannel", "Inventory"] },
-               { name: "Education", icon: "ri-graduation-cap-line", desc: "LMS & digital classrooms.", list: ["LMS", "Digital Classroom", "Student Systems"] },
-               { name: "Energy", icon: "ri-lightning-line", desc: "Smart grid & energy management.", list: ["Smart Grid", "Energy Mgmt", "Sustainability"] }
-             ].map((ind, idx) => (
-              <RevealOnScroll key={idx} delay={idx * 100}>
-                <div className="ds-card group">
-                  <div className="ds-card-icon-box">
-                    <i className={`${ind.icon} text-xl`}></i>
-                  </div>
-                  <h3 className="ds-card-title">{ind.name}</h3>
-                  <p className="ds-card-desc">{ind.desc}</p>
-                  <ul className="ds-card-list">
-                    {ind.list.map((item, i) => (
-                      <li key={i} className="text-sm"><i className="ri-check-line text-green"></i> {item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </RevealOnScroll>
-             ))}
           </div>
         </div>
       </section>
 
-      {/* --- TESTIMONIALS (Reusing layout) --- */}
-      <section className="section-padding bg-white">
-        <div className="container">
-          <RevealOnScroll>
-            <div className="section-header text-center">
-              <h2 className="section-title">Client Success Stories</h2>
-              <p className="section-desc mx-auto">See how organizations have transformed with our solutions.</p>
-            </div>
-          </RevealOnScroll>
-          <div className="grid-3 gap-8">
-            {[
-              { name: "Dr. Sarah Johnson", role: "CTO, HealthCare Plus", quote: "The new system has improved patient satisfaction by 45% and reduced operational costs by 30%." },
-              { name: "Michael Chen", role: "Head of Digital, FirstBank", quote: "We've seen a 60% increase in digital adoption and significantly improved customer experience scores." },
-              { name: "Emily Rodriguez", role: "VP Ops, TechMfg Corp", quote: "Production efficiency increased by 35% and quality defects decreased by 50%." }
-            ].map((t, idx) => (
-              <RevealOnScroll key={idx} delay={idx * 100}>
-                <div className="testimonial-box">
-                  <div className="mb-4">
-                    <h4 className="font-bold text-lg">{t.name}</h4>
-                    <p className="text-sm text-gray-500">{t.role}</p>
-                  </div>
-                  <div className="text-yellow-400 mb-3">
-                    <i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i><i className="ri-star-fill"></i>
-                  </div>
-                  <p className="italic text-gray-600">"{t.quote}"</p>
-                </div>
-              </RevealOnScroll>
-            ))}
+      {/* 5. INDUSTRY SOLUTIONS */}
+      <section className="ds-section-light">
+        <div className="ds-container">
+          <div className="text-center mb-16 ds-reveal">
+            <h2 className="ds-section-title">Industries We Transform</h2>
+            <p className="ds-section-subtitle">
+              We deliver tailored digital transformation solutions across diverse industries, understanding unique challenges and opportunities in each sector.
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* --- FAQ SECTION --- */}
-      <section className="section-padding bg-light">
-        <div className="container">
-          <RevealOnScroll>
-            <div className="section-header text-center">
-              <h2 className="section-title">Frequently Asked Questions</h2>
-              <p className="section-desc mx-auto">Get answers to common questions about our digital transformation services.</p>
-            </div>
-          </RevealOnScroll>
-
-          <div className="faq-wrapper max-w-3xl mx-auto">
-            {faqs.map((faq, idx) => (
-              <RevealOnScroll key={idx} delay={idx * 50}>
-                <div className="faq-item">
-                  <button className="faq-btn" onClick={() => toggleFaq(idx)}>
-                    <span className="faq-question">{faq.q}</span>
-                    <i className={`ri-arrow-down-line transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}></i>
-                  </button>
-                  <div className={`faq-answer ${openFaq === idx ? 'open' : ''}`}>
-                    <p>{faq.a}</p>
-                  </div>
+          <div className="ds-services-grid ds-reveal">
+            {industries.map((ind, i) => (
+              <div key={i} className="ds-service-card group">
+                <div className="ds-card-icon-box">
+                  <i className={`${ind.icon}`}></i>
                 </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --- CTA SECTION --- */}
-      <section className="section-padding bg-white">
-        <div className="container">
-          <RevealOnScroll>
-            <div className="cta-box bg-dark">
-              <h2 className="text-4xl font-bold text-white mb-6">Ready to Transform Your Business?</h2>
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Let's discuss how our digital solutions can accelerate your growth and modernize your operations.</p>
-              <div className="flex justify-center gap-4 flex-wrap">
-                <button className="btn-white">Explore Our Services</button>
-                <button className="btn-outline-white">Schedule Consultation</button>
+                <h3 className="ds-card-title">{ind.title}</h3>
+                <p className="ds-card-desc mb-4">{ind.desc}</p>
+                <ul className="ds-list">
+                  {ind.list.map((li, j) => (
+                    <li key={j} className="ds-list-item">
+                      <i className="ri-check-line"></i>
+                      <span>{li}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. TESTIMONIALS */}
+      <section className="ds-section-white">
+        <div className="ds-container">
+          <div className="text-center mb-16 ds-reveal">
+            <h2 className="ds-section-title">Client Success Stories</h2>
+            <p className="ds-section-subtitle">
+              See how organizations across industries have transformed their operations and achieved remarkable results with our digital solutions.
+            </p>
+          </div>
+          <div className="ds-testimonials-grid ds-reveal">
+            {testimonials.map((t, i) => (
+              <div key={i} className="ds-testimonial-card">
+                <div className="mb-6">
+                  <h4 className="ds-test-name">{t.name}</h4>
+                  <p className="ds-test-role">{t.role}</p>
+                  <p className="ds-test-company">{t.company}</p>
+                </div>
+                <div className="mb-4">
+                  <div className="ds-stars">
+                    {[...Array(5)].map((_, s) => <i key={s} className="ri-star-fill"></i>)}
+                  </div>
+                  <blockquote className="ds-quote">"{t.quote}"</blockquote>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FAQ */}
+      <section className="ds-section-light">
+        <div className="ds-container">
+          <div className="text-center mb-16 ds-reveal">
+            <h2 className="ds-section-title">Frequently Asked Questions</h2>
+            <p className="ds-section-subtitle">
+              Get answers to common questions about our digital transformation services and processes.
+            </p>
+          </div>
+          <div className="ds-faq-wrapper ds-reveal">
+            {faqs.map((q, i) => (
+              <div key={i} className="ds-faq-item">
+                <button className="ds-faq-btn" onClick={() => toggleFaq(i)}>
+                  <h3 className="ds-faq-question">{q}</h3>
+                  <div className="ds-faq-icon">
+                    <i className={`ri-arrow-down-line ${openFaq === i ? 'rotate' : ''}`}></i>
+                  </div>
+                </button>
+                <div className={`ds-faq-content ${openFaq === i ? 'open' : ''}`}>
+                  <p>
+                    We work closely with your stakeholders to ensure minimal disruption. Our phased approach allows for iterative testing and deployment, ensuring that your business operations continue smoothly during the transformation.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. CTA */}
+      <section className="ds-cta-section">
+        <div className="ds-container text-center ds-reveal">
+          <div className="ds-cta-content">
+            <h2 className="ds-cta-title">Ready to Transform Your Business?</h2>
+            <p className="ds-cta-desc">
+              Let's discuss how our digital solutions can accelerate your growth and modernize your operations.
+            </p>
+            <div className="ds-cta-buttons">
+              <button className="ds-btn-white">Explore Our Services</button>
+              <button className="ds-btn-outline">Schedule Consultation</button>
             </div>
-          </RevealOnScroll>
+          </div>
         </div>
       </section>
 

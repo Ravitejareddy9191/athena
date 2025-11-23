@@ -2,10 +2,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 @import url('https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css');
 
-
 /* --- Typing Animation Styles --- */
-
-/* Blinking Cursor */
 .typing-cursor {
   display: inline-block;
   margin-left: 4px;
@@ -20,11 +17,10 @@
   50% { opacity: 0; }
 }
 
-/* Entrance Animation (Slide Up + Fade In) */
 .fade-in-up {
   animation: fadeInUp 1s ease-out forwards;
-  opacity: 0; /* Start hidden */
-  transform: translateY(30px); /* Start slightly lower */
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 @keyframes fadeInUp {
@@ -34,21 +30,24 @@
   }
 }
 
-/* Optional: Prevent layout shift during typing on small screens */
+/* Prevent layout shift during typing on small screens */
 .hero-title {
-  min-height: 3em; /* Reserves space for 2 lines of text */
+  min-height: 3em;
 }
 @media (min-width: 768px) {
   .hero-title {
-    min-height: auto; /* Reset on desktop if needed */
+    min-height: auto;
   }
 }
+
+/* ------------------------------------------------
+   GLOBAL / THEME
+   ------------------------------------------------ */
 :root {
   --primary-black: #000000;
   --white: #ffffff;
   --text-gray: #d1d5db;
-  /* The exact gradient from the HTML (Blue 400 to Purple 500) */
-  --gradient-primary: linear-gradient(to right, #60a5fa, #a855f7); 
+  --gradient-primary: linear-gradient(to right, #60a5fa, #a855f7);
 }
 
 * {
@@ -58,7 +57,6 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* --- ANIMATIONS --- */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: .5; }
@@ -68,32 +66,36 @@
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* --- HEADER --- */
+/* ------------------------------------------------
+   HEADER (DESKTOP BASE)
+   ------------------------------------------------ */
 .header {
   background-color: rgb(0, 0, 0);
   height: 95px;
   display: flex;
   align-items: center;
-  justify-content: space-between ;
+  justify-content: space-between;
   padding: 0 24px;
-  position: Sticky;
+  position: sticky;
   top: 0;
   z-index: 1000;
-  /* Tailwind: backdrop-blur-sm shadow-lg */
   backdrop-filter: blur(4px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .header-container {
   width: 100%;
-  max-width: 1200px; /* optional, for nice center layout */
+  max-width: 1600px;
+  margin: 0 auto;
+  height: 100%;
 }
 
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* LEFT — CENTER — RIGHT */
+  justify-content: space-between;
   width: 100%;
+  height: 100%;
 }
 
 .logo-container {
@@ -116,7 +118,6 @@
   text-decoration: none;
 }
 
-/* The "IQ" Gradient Text Effect */
 .logo span {
   background: var(--gradient-primary);
   -webkit-background-clip: text;
@@ -133,6 +134,11 @@
   margin-top: 4px;
 }
 
+/* NAV LINKS (DESKTOP) */
+.desktop-nav {
+  display: block;
+}
+
 .nav-links {
   display: flex;
   gap: 32px;
@@ -142,7 +148,7 @@
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 0.85rem; /* text-sm */
+  font-size: 0.85rem;
   font-weight: 700;
   position: relative;
   transition: color 0.2s;
@@ -152,7 +158,6 @@
   color: #d1d5db;
 }
 
-/* Underline hover effect from HTML */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -169,6 +174,7 @@
   width: 100%;
 }
 
+/* CONTACT BUTTON (DESKTOP) */
 .btn-contact {
   background: white;
   color: black;
@@ -186,453 +192,115 @@
   transform: scale(1.05);
 }
 
-
-/* --- Global & Reset --- */
-:root {
-  /* Tailwind Colors Extracted from Source */
-  --bg-gray-900: #111827;
-  --bg-gray-50: #f9fafb;
-  --bg-gray-100: #f3f4f6;
-  --text-gray-900: #111827;
-  --text-gray-600: #4b5563;
-  --text-gray-500: #6b7280;
-  --text-gray-400: #9ca3af;
-  --text-gray-300: #d1d5db;
-  --blue-500: #3b82f6;
-  --purple-500: #a855f7;
-  --white: #ffffff;
-  --border-gray-100: #f3f4f6;
-  --border-gray-200: #e5e7eb;
+.desktop-btn {
+  display: block;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: var(--text-gray-600);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.tech-page-wrapper {
-  width: 100%;
-  background-color: var(--white);
-}
-
-.tech-container {
-  width: 100%;
-  max-width: 1280px; /* container mx-auto max-width for lg */
-  margin: 0 auto;
-  padding: 0 1.5rem; /* px-6 */
-}
-
-/* --- Typography Utilities --- */
-.text-center { text-align: center; }
-.mb-16 { margin-bottom: 4rem; }
-
-.tech-section-title {
-  font-size: 2.25rem; /* text-4xl */
-  line-height: 2.5rem;
-  font-weight: 700;
-  color: var(--text-gray-900);
-  margin-bottom: 1.5rem;
-}
-
-.tech-section-subtitle {
-  font-size: 1.25rem; /* text-xl */
-  line-height: 1.75rem;
-  color: var(--text-gray-600);
-  max-width: 48rem; /* max-w-3xl */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* --- 1. Hero Section --- */
-.tech-hero {
-  position: relative;
-  background-color: var(--bg-gray-900);
-  padding-top: 6rem;    /* py-24 */
-  padding-bottom: 6rem;
-  overflow: hidden;
-}
-
-@media (min-width: 1024px) {
-  .tech-hero {
-    padding-top: 8rem; /* lg:py-32 */
-    padding-bottom: 8rem;
-  }
-}
-
-.tech-hero-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url("https://readdy.ai/api/search-image?query=Advanced%20technology%20infrastructure%20with%20cloud%20computing%20servers%2C%20modern%20data%20center%20environment%20with%20glowing%20network%20connections%2C%20high-tech%20workspace%20with%20cutting-edge%20equipment%2C%20contemporary%20office%20with%20blue%20and%20purple%20lighting%2C%20clean%20professional%20background%20with%20technological%20elements&width=1920&height=1080&seq=technology-hero-bg&orientation=landscape");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.2;
-  z-index: 0;
-}
-
-.tech-hero-overlay {
-  display: none; /* The source uses opacity on bg image directly, not a separate overlay div */
-}
-
-.tech-hero .tech-container {
-  position: relative;
-  z-index: 10;
-}
-
-.tech-hero-title {
-  font-size: 3rem; /* text-5xl */
-  line-height: 1;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 1.5rem;
-  max-width: 56rem; /* max-w-4xl */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media (min-width: 1024px) {
-  .tech-hero-title {
-    font-size: 3.75rem; /* lg:text-6xl */
-  }
-}
-
-.tech-hero-subtitle {
-  font-size: 1.25rem; /* text-xl */
-  color: var(--text-gray-300);
-  margin-bottom: 2rem;
-  max-width: 42rem; /* max-w-2xl */
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.625;
-}
-
-.btn-white-lg {
-  background-color: var(--white);
-  color: var(--text-gray-900);
-  padding: 1rem 2rem; /* px-8 py-4 */
-  border-radius: 0.5rem; /* rounded-lg */
-  font-weight: 600;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s;
-  white-space: nowrap;
-}
-
-.btn-white-lg:hover {
-  background-color: var(--bg-gray-100);
-}
-
-/* --- 2. Stats Section --- */
-.tech-stats-section {
-  background-color: var(--white);
-  padding-top: 4rem; /* py-16 */
-  padding-bottom: 4rem;
-}
-
-.tech-stats-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-@media (min-width: 768px) {
-  .tech-stats-grid {
-    grid-template-columns: repeat(4, 1fr); /* md:grid-cols-4 */
-  }
-}
-
-.tech-stat-item {
-  text-align: center;
-}
-
-.tech-stat-icon {
-  width: 4rem; /* w-16 */
-  height: 4rem; /* h-16 */
-  background-color: var(--bg-gray-100);
-  border-radius: 0.5rem; /* rounded-lg */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem auto;
-}
-
-.tech-stat-icon i {
-  font-size: 1.5rem; /* text-2xl */
-  color: var(--text-gray-900);
-}
-
-.tech-stat-number {
-  font-size: 1.875rem; /* text-3xl */
-  line-height: 2.25rem;
-  font-weight: 700;
-  color: var(--text-gray-900);
-  margin-bottom: 0.5rem;
-}
-
-.tech-stat-label {
-  color: var(--text-gray-600);
-  font-weight: 500;
-}
-
-/* --- Common Section Styles --- */
-.tech-section {
-  padding-top: 5rem; /* py-20 */
-  padding-bottom: 5rem;
-}
-
-.bg-gray-50 { background-color: var(--bg-gray-50); }
-.bg-white { background-color: var(--white); }
-
-/* --- Tech Cards Grids --- */
-.tech-category {
-  margin-bottom: 4rem; /* space-y-16 logic */
-}
-
-.tech-cat-title {
-  font-size: 1.5rem; /* text-2xl */
-  font-weight: 700;
-  color: var(--text-gray-900);
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.tech-cards-grid, .tech-cards-grid-3 {
-  display: grid;
-  gap: 1.5rem; /* gap-6 */
-}
-
-@media (min-width: 768px) {
-  .tech-cards-grid, .tech-cards-grid-3 {
-    grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
-  }
-}
-
-@media (min-width: 1024px) {
-  .tech-cards-grid {
-    grid-template-columns: repeat(4, 1fr); /* lg:grid-cols-4 */
-  }
-  .tech-cards-grid-3 {
-    grid-template-columns: repeat(3, 1fr); /* lg:grid-cols-3 */
-  }
-}
-
-/* --- Detailed Tech Card --- */
-.tech-detailed-card {
-  background-color: var(--white);
-  border-radius: 0.75rem; /* rounded-xl */
-  padding: 1.5rem; /* p-6 */
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-  border: 1px solid var(--border-gray-100);
-  transition: all 0.3s;
-  height: 100%;
-}
-
-.tech-detailed-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* hover:shadow-lg */
-}
-
-.tech-card-icon {
-  width: 3rem; /* w-12 */
-  height: 3rem; /* h-12 */
-  background-color: var(--bg-gray-100);
-  border-radius: 0.5rem; /* rounded-lg */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.tech-card-icon i {
-  font-size: 1.25rem; /* text-xl */
-  color: var(--text-gray-900);
-}
-
-.tech-detailed-card h4 {
-  font-size: 1.125rem; /* text-lg */
-  font-weight: 600;
-  color: var(--text-gray-900);
-  margin-bottom: 0.5rem;
-}
-
-.tech-detailed-card p {
-  font-size: 0.875rem; /* text-sm */
-  color: var(--text-gray-600);
-  margin-bottom: 1rem;
-  line-height: 1.625;
-}
-
-.tech-card-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem; /* space-y-1 */
-}
-
-.tech-list-item {
-  display: flex;
-  align-items: center;
-  font-size: 0.75rem; /* text-xs */
-  color: var(--text-gray-500); /* text-gray-700 in source, adjusted to match visual */
-}
-
-.tech-list-item i {
-  color: #22c55e; /* text-green-500 */
-  margin-right: 0.5rem;
-  font-size: 0.75rem; /* text-xs */
-}
-
-/* --- 6. CTA Section --- */
-.tech-cta-section {
-  background-color: var(--bg-gray-900);
-  padding-top: 5rem; /* py-20 */
-  padding-bottom: 5rem;
-  text-align: center;
-}
-
-.tech-cta-section h2 {
-  color: var(--white);
-  font-size: 2.25rem; /* text-4xl */
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-
-.tech-cta-section p {
-  color: var(--text-gray-300);
-  font-size: 1.25rem; /* text-xl */
-  max-width: 42rem; /* max-w-2xl */
-  margin: 0 auto 2rem auto;
-}
-
-
-/* =========================================
-   GLOBAL MOBILE FIXES (App.css)
-   ========================================= */
-
-@media (max-width: 1024px) {
-  /* 1. Make Header Stackable */
-  .header {
-    height: auto;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem; /* Reduce gap */
-  }
-  
-  .nav-links a {
-    font-size: 0.8rem;
-  }
-
-  /* 2. Adjust Global Typography */
-  .tech-section-title {
-    font-size: 1.75rem; /* Reduce from 2.25rem */
-    line-height: 1.2;
-  }
-  
-  .tech-section-subtitle {
-    font-size: 1rem;
-    padding: 0 1rem;
-  }
-
-  /* 3. Adjust Container Padding */
-  .tech-container {
-    padding: 0 1.25rem;
-  }
-  
-  /* 4. Reduce Section Spacing */
-  .tech-section {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-  
-  .tech-hero {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-}
-
-/* =========================================
-   HEADER & MOBILE MENU STYLES
-   ========================================= */
-
-/* 1. Header Container Tweaks */
-.header-container {
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  height: 100%;
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-}
-
-/* 2. Desktop Specifics (Hide on Mobile) */
-@media (max-width: 1024px) {
-  .desktop-nav, 
-  .desktop-btn {
-    display: none;
-  }
-}
-
-/* 3. Hamburger Button */
+/* ------------------------------------------------
+   MOBILE MENU BASE
+   ------------------------------------------------ */
 .mobile-menu-btn {
-  display: none; /* Hidden on Desktop */
+  display: none;
   background: transparent;
   border: none;
   color: white;
   font-size: 1.3rem;
   cursor: pointer;
-  z-index: 1001; /* Stay above menu */
+  z-index: 1001;
 }
 
-/* =========================================
-   GLOBAL MOBILE FIXES (App.css)
-   ========================================= */
+/* We only show overlay when Header.jsx renders it */
+.mobile-menu-overlay {
+  /* default styles will be in media query */
+}
 
+/* ------------------------------------------------
+   TABLET & MOBILE (<= 1024px)
+   ------------------------------------------------ */
 @media (max-width: 1024px) {
-  /* 1. FIX THE HEADER STACKING AND POSITIONING */
   .header {
-    /* Revert to the original column idea, but only for mobile, 
-       to cleanly separate the main content row from the menu dropdown. */
-    height: auto; /* Allow height to adjust */
-    padding: 0; /* Remove padding from the outer header */
-    flex-direction: column; /* Allow content to stack */
+    height: 60px;
+    padding: 0 16px;
   }
 
-  /* 2. Style the Main Header Row (Logo + Button) */
   .header-container {
-    height: 60px; /* Set a specific height for the visible bar */
-    padding: 0 1rem; /* Add horizontal padding (px-4 equivalent) */
-    max-width: 100%; /* Ensure it uses the full width */
+    padding: 0;
+    max-width: 100%;
   }
 
-  /* 3. Ensure the mobile menu button is on the top layer */
-  .mobile-menu-btn {
-    z-index: 1001; /* Must be high */
-  }
-
-  /* 4. Desktop Elements (Keep them hidden) */
-  .desktop-nav, 
+  .desktop-nav,
   .desktop-btn {
     display: none;
   }
-  
-  /* ... Keep your other existing mobile fixes for typography, sections, etc. ... */
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 0.75rem;
+    background-color: #111827;
+    border: 1px solid #1f2933;
+    color: #ffffff;
+  }
+
+  .mobile-menu-btn i {
+    font-size: 1.25rem;
+  }
+
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    top: 60px;
+    background-color: #000000;
+    z-index: 1500;
+    padding: 16px 24px 24px;
+    overflow-y: auto;
+  }
+
+  .mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 60px);
+  }
+
+  .mobile-menu-divider {
+    height: 1px;
+    background-color: #1f2937;
+    margin-bottom: 16px;
+  }
+
+  .mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mobile-menu-link {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 10px 0;
+  }
+
+  .mobile-menu-contact-btn {
+    margin-top: 24px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: 700;
+    text-align: center;
+    padding: 12px 0;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+
+  .mobile-menu-contact-btn:hover {
+    background-color: #e5e7eb;
+  }
 }
