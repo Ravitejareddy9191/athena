@@ -14,9 +14,16 @@ Before you begin, ensure you have the following installed:
 ```bash
    npm install
    ```
+## 2. Development
+   To run the application in development mode with hot module replacement (HMR):
 
+```bash
+   npm run dev
+   ```
 
-## 2. Build Process
+This will start a local server (usually at http://localhost:5173) and open the app in your browser.
+
+## 3. Build Process
    This project uses Vite for bundling and building the application for production. The build process compiles your React code, processes Tailwind CSS, and optimizes assets.
    Running the Build
    To generate a production-ready build, run the following command in your terminal:
@@ -45,16 +52,13 @@ After building, you can preview the production build locally to ensure everythin
    npm run preview
    ```
 
-## 3. Development
-   To run the application in development mode with hot module replacement (HMR):
+## 4. Code Quality
+   To check the code for errors using ESLint
 
 ```bash
-   npm run dev
+   npm run lint
    ```
-
-This will start a local server (usually at http://localhost:5173) and open the app in your browser.
-
-## 4. Project Structure
+## 5. Project Structure
    
       src/: Contains the source code (components, pages, assets).
 
