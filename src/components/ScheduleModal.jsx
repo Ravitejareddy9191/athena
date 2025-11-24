@@ -8,13 +8,12 @@ const ScheduleModal = ({
   preselectedService = "" 
 }) => {
   const [charCount, setCharCount] = useState(0);
-  const [today, setToday] = useState('');
+  const today = new Date().toISOString().split('T')[0];
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      setToday(new Date().toISOString().split('T')[0]);
     } else {
       document.body.style.overflow = 'unset';
     }

@@ -31,6 +31,7 @@ const RevealOnScroll = ({ children, delay = 0, className = '' }) => {
     </div>
   );
 };
+const words = ["Digital Solutions", "AI Services", "Digital Marketing", "Staff Augmentation"];
 
 const Home = () => {
   const location = useLocation();
@@ -41,8 +42,6 @@ const Home = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
   const [isPausing, setIsPausing] = useState(false);
-
-  const words = ["Digital Solutions", "AI Services", "Digital Marketing", "Staff Augmentation"];
 
   useEffect(() => {
     const handleType = () => {
@@ -67,7 +66,7 @@ const Home = () => {
 
     const timer = setTimeout(handleType, typingSpeed);
     return () => clearTimeout(timer);
-  }, [text, isPausing, loopNum, typingSpeed, words]);
+  }, [text, isPausing, loopNum, typingSpeed]);
 
   // Handle Hash Scrolling
   useEffect(() => {
