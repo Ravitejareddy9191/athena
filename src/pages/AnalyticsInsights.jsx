@@ -407,7 +407,7 @@ const AnalyticsInsights = () => {
         onClose={() => setIsModalOpen(false)} 
         title="Schedule Analytics Consultation"
         subtitle="Let's explore how data analytics can unlock insights and drive business growth. Our analytics experts will assess your current data landscape and recommend solutions."
-        preselectedService="Analytics & Insights"
+        preselectedService="Data Analytics"
       />
     </div>
   );

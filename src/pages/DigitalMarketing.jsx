@@ -355,7 +355,7 @@ const DigitalMarketing = () => {
         onClose={() => setIsModalOpen(false)} 
         title="Schedule Marketing Consultation"
         subtitle="Let's create a customized digital marketing strategy that drives real results. Our marketing experts will analyze your current approach and recommend growth opportunities."
-        preselectedService="digital-marketing"
+        preselectedService="Digital Marketing"
       />
     </div>
   );
