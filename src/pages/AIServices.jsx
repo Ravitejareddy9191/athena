@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ScheduleModal from '../components/ScheduleModal';
-
+import { Link } from 'react-router-dom';
 const RevealOnScroll = ({ children, delay = 0, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
@@ -324,19 +324,31 @@ const AIServices = () => {
       </section>
 
       {/* CTA */}
-      <section id="ai-consultation" className="py-20 bg-gray-900 text-white text-center">
-        <div className="max-w-4xl mx-auto px-6">
-          <ScheduleModal 
+      <section className="bg-white py-20">
+        <div className="container mx-auto px-6">
+          <RevealOnScroll>
+            <div className="bg-gray-900 rounded-2xl p-12 lg:p-16 text-center">
+              <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">Ready to Transform Your Business with AI?</h2>
+              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Get expert AI consultation to identify opportunities, develop strategies, and implement solutions that drive real business value.</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onClick={() => setIsModalOpen(true)} className="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 text-center whitespace-nowrap cursor-pointer">
+                  Get AI Consultation
+                </button>
+                <Link to="/#services" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition-colors duration-300 text-center whitespace-nowrap cursor-pointer">
+                  View All Services
+                </Link>
+              </div>
+            </div>
+          </RevealOnScroll>
+        </div>
+      </section>
+      <ScheduleModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         title="Schedule AI Consultation"
-        subtitle="Let's discuss how AI can transform your business operations and drive growth. Our experts will analyze your needs and propose tailored AI solutions."
-        preselectedService="ai-services"
+        subtitle="Let's discuss how AI can transform your business operations and drive growth. Our experts will analyze your needs and propose tailored AI solutions.."
+        preselectedService="AI Services"
       />
-        </div>
-      </section>
-
-      
     </div>
   );
 };

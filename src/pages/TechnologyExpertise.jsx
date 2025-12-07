@@ -352,7 +352,7 @@ const TechnologyExpertise = () => {
         onClose={() => setIsModalOpen(false)} 
         title="Schedule Technology Consultation"
         subtitle="Let's discuss how cutting-edge technology solutions can accelerate your digital transformation and drive innovation. Our experts will analyze your needs and recommend the best technologies."
-        preselectedService="digital-marketing"
+        preselectedService="Technology Consulting"
       />
     </div>
   );

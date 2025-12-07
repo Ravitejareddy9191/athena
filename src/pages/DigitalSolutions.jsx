@@ -343,7 +343,7 @@ const DigitalSolutions = () => {
         onClose={() => setIsModalOpen(false)} 
         title="Schedule Digital Consultation"
         subtitle="Let's discuss how our digital transformation solutions can modernize your business operations and accelerate growth. We'll analyze your needs and propose the best approach."
-        preselectedService="digital-solutions"
+        preselectedService="Digital Solutions"
       />
     </div>
   );

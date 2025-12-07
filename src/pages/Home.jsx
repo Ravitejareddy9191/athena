@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ScheduleModal from '../components/ScheduleModal';
+import { submitToGoogleSheets } from '../services/formService';
 
 // --- REVEAL COMPONENT ---
 const RevealOnScroll = ({ children, delay = 0, className = '' }) => {
@@ -44,6 +45,10 @@ const Home = () => {
 
   const words = ["Digital Solutions", "AI Services", "Digital Marketing", "Staff Augmentation"];
 
+  // --- CONTACT FORM STATE (NEW) ---
+  const [isContactSubmitting, setIsContactSubmitting] = useState(false);
+  const [contactStatus, setContactStatus] = useState(null); // 'success' | 'error' | null
+
   useEffect(() => {
     const handleType = () => {
       const i = loopNum % words.length;
@@ -69,13 +74,40 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [text, isPausing, loopNum, typingSpeed, words]);
 
-  // Handle Hash Scrolling
+  // Handle Hash Scrolling (from OLD version)
   useEffect(() => {
     if (location.hash) {
       const element = document.getElementById(location.hash.substring(1));
       if (element) element.scrollIntoView({ behavior: 'smooth' });
     }
   }, [location.hash]);
+
+  // --- CONTACT FORM SUBMIT HANDLER (NEW) ---
+  const handleContactSubmit = (e) => { // Removed 'async'
+    e.preventDefault();
+    setIsContactSubmitting(true);
+    
+    // 1. Capture form data immediately
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    // 2. OPTIMISTIC UPDATE: Show success immediately
+    setContactStatus('success');
+    e.target.reset();
+    setIsContactSubmitting(false);
+
+    // 3. Send to Google Sheets in the background (Fire and Forget)
+    submitToGoogleSheets(data, 'contact')
+      .then((result) => {
+        // Optional: Log success if needed
+        console.log('Background submission success:', result);
+      })
+      .catch((err) => {
+        // Since we already told the user "Success", we log this silently
+        // or trigger a global error toaster if you have one.
+        console.error('Background submission failed', err);
+      });
+};
 
   return (
     <div className="font-sans text-gray-900 w-full overflow-x-hidden">
@@ -376,27 +408,69 @@ const Home = () => {
 
             {/* Contact Form */}
             <RevealOnScroll delay={400}>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleContactSubmit}>
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Name *</label>
-                  <input type="text" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md text-sm focus:scale-102" placeholder="Your name" />
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md text-sm focus:scale-102"
+                    placeholder="Your name"
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Email *</label>
-                  <input type="email" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md text-sm focus:scale-102" placeholder="your@email.com" />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md text-sm focus:scale-102"
+                    placeholder="your@email.com"
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Company</label>
-                  <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md text-sm focus:scale-102" placeholder="Your company" />
+                  <input
+                    type="text"
+                    name="company"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md text-sm focus:scale-102"
+                    placeholder="Your company"
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-900 mb-2">Message *</label>
-                  <textarea rows="4" required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 resize-none shadow-sm hover:shadow-md text-sm focus:scale-102" placeholder="Tell us about your project..."></textarea>
+                  <textarea
+                    rows="4"
+                    name="message"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 resize-none shadow-sm hover:shadow-md text-sm focus:scale-102"
+                    placeholder="Tell us about your project..."
+                  ></textarea>
                   <p className="text-sm text-gray-500 mt-1">0/500 characters</p>
                 </div>
-                <button type="submit" className="w-full bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-lg hover:shadow-xl active:scale-95 relative overflow-hidden group">
+
+                {contactStatus === 'success' && (
+                  <div className="p-3 bg-green-100 text-green-700 rounded-lg text-sm">
+                    Thank you! Your message has been sent. We’ll get back to you soon.
+                  </div>
+                )}
+
+                {contactStatus === 'error' && (
+                  <div className="p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                    Something went wrong. Please try again or email us directly.
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isContactSubmitting}
+                  className="w-full bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-lg hover:shadow-xl active:scale-95 relative overflow-hidden group"
+                >
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                  <span className="relative z-10">Send Message</span>
+                  <span className="relative z-10">
+                    {isContactSubmitting ? 'Sending…' : 'Send Message'}
+                  </span>
                 </button>
               </form>
             </RevealOnScroll>
@@ -405,10 +479,10 @@ const Home = () => {
       </section>
       
       <ScheduleModal 
-      isOpen={isModalOpen} 
-      onClose={() => setIsModalOpen(false)} 
-      title="Get Started with Digital Innovation"
-      subtitle="Ready to transform your business? Let's discuss your goals and create a customized digital strategy that drives real results for your organization."
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        title="Get Started with Digital Innovation"
+        subtitle="Ready to transform your business? Let's discuss your goals and create a customized digital strategy that drives real results for your organization."
       />
     </div>
   );
